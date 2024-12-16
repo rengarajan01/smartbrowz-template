@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Template</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&display=swap"rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/liquidjs/dist/liquid.browser.umd.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+
+                const engine = new window.liquidjs.Liquid();
+
+                const template = document.getElementById('template').innerHTML;
+                const renderedHTML = await engine.parseAndRender(template, data);
+                
+                document.getElementById('app').innerHTML = renderedHTML;
+            } catch (error) {
+                console.error('Error processing invoice template:', error);
+            }
+        });
+    </script>
+
+    <script type="text/liquid" id="template">
+        <div class="invoice-container">
+            <div class="invoice-header">
+                <div class="brand-info">
+                    <img src="{{brand_logo}}" alt="{{brand_name}} Logo" class="brand-logo" width="32" height="32">
+                    <h4>{{brand_name}}</h4>
+                    <p>Hello, {{customer_name}}</p>
+                    <p>Thank you for shopping from our store and for your order.</p>
+                </div>
+                <div class="invoice-details">
+                    <h2>Invoice</h2>
+                    <p>ORDER #{{order_id}}</p>
+                    <p>{{order_date}}</p>
+                </div>
+            </div>
+
+            <div class="order-details">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Unit</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.unit }}</td>
+                            <td>{{ product.quantity }}</td>
+                            <td>${{ product.price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="invoice-summary">
+                <div class="totals">
+                    <div class="total-row">
+                        <span>Subtotal</span>
+                        <span>${{sub_total}}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Shipping & Handling</span>
+                        <span>${{shipment_charge}}</span>
+                    </div>
+                    <div class="total-row total-grand">
+                        <strong>Grand Total (Incl.Tax)</strong>
+                        <strong>${{total}}</strong>
+                    </div>
+                    <div class="total-row total-tax">
+                        <small>TAX</small>
+                        <small>${{tax}}</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="invoice-information">
+                <div class="info-section">
+                    <div class="billing-info">
+                        <h3>BILLING INFORMATION</h3>
+                        <p>{{billing_address}}</p>
+                    </div>
+                    <div class="payment-info">
+                        <h3>PAYMENT METHOD</h3>
+                        <p>Type: Credit Card</p>
+                    </div>
+                </div>
+                <div class="shipping-info">
+                    <div class="shipping-address">
+                        <h3>SHIPPING INFORMATION</h3>
+                        <p>{{shipping_address}}</p>
+                    </div>
+                    <div class="shipping-method">
+                        <h3>SHIPPING METHOD</h3>
+                        <p>{{shipping_method}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</body>
+</html>

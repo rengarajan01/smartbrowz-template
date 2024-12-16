@@ -1,0 +1,162 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fff;
+}
+
+.invoice-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.brand-logo {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.brand-info h4 {
+    margin: 10px 0;
+    color: black;
+}
+
+.invoice-details {
+    text-align: right;
+}
+
+.invoice-details h2 {
+    color: #ff0000;
+    margin: 0;
+    font-size: 21px;
+    letter-spacing: -1px;
+}
+
+
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.products-table th {
+    font-size: 12px;
+    color: #5b5b5b;
+    font-weight: normal;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #bebebe;
+}
+
+.products-table td {
+    font-size: 12px;
+    color: #646a6e;
+    padding: 10px;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.products-table tr:last-child td {
+    border-bottom: none;
+}
+
+
+.invoice-summary {
+    padding: 20px;
+}
+
+.totals {
+    text-align: right;
+}
+
+.total-row {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.total-row span {
+    color: #646a6e;
+}
+
+.total-row.total-grand {
+    color: black;
+    font-weight: bold;
+}
+
+.total-row.total-tax small {
+    color: #b0b0b0;
+}
+
+
+.invoice-information {
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.info-section, .shipping-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.billing-info, .payment-info, .shipping-address, .shipping-method {
+    width: 48%;
+}
+
+.info-section h3, .shipping-info h3 {
+    font-size: 11px;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.info-section p, .shipping-info p {
+    font-size: 12px;
+    color: #5b5b5b;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+    .invoice-header,
+    .info-section,
+    .shipping-info {
+        flex-direction: column;
+    }
+
+    .invoice-details {
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    .billing-info, .payment-info,
+    .shipping-address, .shipping-method {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+.hiddenMobile {
+    display: block;
+}
+
+.visibleMobile {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .hiddenMobile {
+        display: none;
+    }
+
+    .visibleMobile {
+        display: block;
+    }
+}
